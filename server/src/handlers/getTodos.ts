@@ -1,6 +1,11 @@
 import { RouteHandler } from "fastify";
-import { GetTodosRoute } from "../routes/todo";
+import db from "../db";
+import { GetTodosRoute, zTodosResponse } from "../schemas/todo";
 
 export const getTodos: RouteHandler<GetTodosRoute> = async (_request, reply) => {
-    return reply.send([{title: "Sample Todo", status: "TODO"}]);
+
+    const todosFromDb = await db.query('SELECT * FROM todo');
+    const validatedTodos = zTodosResponse.parse(todosFromDb.rows);
+
+    return reply.send(validatedTodos);
 };
