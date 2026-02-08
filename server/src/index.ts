@@ -1,11 +1,6 @@
 import { initApp } from "./app";
 
-
 require('dotenv').config();
-
-
-
-// TODO api key middleware
 
 initApp().then((server) => {
   server.listen({ port: Number(process.env.APP_PORT) }, (err, address) => {
