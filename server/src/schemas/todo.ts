@@ -5,10 +5,12 @@ export const zTodoId = z.object({
   id: z.number(),
 });
 
+export const zTodoStatus = z.enum(["TODO", "IN PROGRESS", "DONE", "REMOVED"]);
+
 export const zTodo = zTodoId.extend({
     title: z.string(),
     description: z.string(),
-    status: z.enum(["TODO", "IN PROGRESS", "DONE", "REMOVED"]),
+    status: zTodoStatus,
 });
 
 export type Todo = z.infer<typeof zTodo>;
