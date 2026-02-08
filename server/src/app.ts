@@ -1,4 +1,5 @@
 import { FastifyInstance } from "fastify";
+import cors from '@fastify/cors'
 import fastify from "fastify";
 import { todoRoutes } from "./routes/todo";
 import { getAuthMiddleware } from "./middleware/auth";
@@ -11,6 +12,8 @@ export const initApp = async (): Promise<FastifyInstance> => {
 
   server.setValidatorCompiler(validatorCompiler);
   server.setSerializerCompiler(serializerCompiler);
+
+  await server.register(cors, { origin: 'http://localhost:5173' })
 
   server.register(async (instance) => {
     instance.addHook("preHandler", getAuthMiddleware(process.env.API_KEY));

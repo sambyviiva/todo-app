@@ -9,6 +9,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@fastify/cors": "^11.2.0",
     "dotenv": "^17.2.3",
     "fastify": "^5.7.4",
     "fastify-type-provider-zod": "^6.1.0",
