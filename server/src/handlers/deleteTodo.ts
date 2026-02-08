@@ -6,7 +6,7 @@ export const removeTodos: RouteHandler<DeleteTodosRoute> = async (request, reply
     const { id } = request.body;
 
     const removedTodo = await db.query(
-        'DELETE FROM todo WHERE id = $1 RETURNING *',
+        'UPDATE todo SET deleted = TRUE WHERE id = $1 RETURNING *',
         [id]
     );
     const validatedTodo = zTodo.parse(removedTodo.rows[0]);
