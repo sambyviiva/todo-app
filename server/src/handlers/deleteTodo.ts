@@ -5,10 +5,12 @@ import { DeleteTodosRoute, zTodo } from "../schemas/todo";
 export const removeTodos: RouteHandler<DeleteTodosRoute> = async (request, reply) => {
     const { id } = request.body;
 
-    const removedTodo = await db.query(
-        'UPDATE todo SET deleted = TRUE WHERE id = $1 RETURNING *',
+    const result = await db.query(
+        'UPDATE todo SET removed_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP WHERE id = $1 RETURNING *',
         [id]
     );
-    const validatedTodo = zTodo.parse(removedTodo.rows[0]);
+
+    const pgReturnValue = result.rows[0];
+    const validatedTodo = zTodo.parse(pgReturnValue);
     return reply.send(validatedTodo);
 };
