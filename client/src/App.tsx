@@ -1,11 +1,9 @@
 import './styles/App.css'
-import { Dashboard } from './pages/Dashboard'
+import { Dashboard } from './components/TodoDashboard'
 
 function App() {
   return (
-    <>
       <Dashboard />
-    </>
   )
 }
 
