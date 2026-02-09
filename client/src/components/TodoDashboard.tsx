@@ -1,0 +1,38 @@
+
+import { todoApi } from "../apis/todoApi";
+import { useFetchTodos } from "../hooks/useFetchTodos";
+import type { Todo, TodoStatusChangeDirection } from "../types";
+import { getNextStatus } from "../utils/todo";
+import { TodoColumn } from "./TodoColumn";
+
+export const Dashboard = () => {
+  const { data, loading, error, fetchTodos } = useFetchTodos();
+
+  const updateTodoStatus = async (todoToUpdate: Todo, direction: TodoStatusChangeDirection) => {
+    const nextStatus = getNextStatus(todoToUpdate, direction);
+    await todoApi.UPDATE({...todoToUpdate, status: nextStatus});
+    fetchTodos();
+  };
+
+  const removeTodo = async (id: number) => {
+    await todoApi.DELETE(id);
+    fetchTodos();
+  }
+
+  console.log("data", data);
+  
+  return (
+        <div className="flex flex-col items-center p-4 w-full">
+            <h1 className="text-2xl font-bold mb-12 mt-4">TODO List</h1>
+            {loading && <p>Loading...</p>}
+            {error && <p className="text-red-500">{error}</p>}
+            {data && (
+              <div className="grid grid-cols-3 gap-16">
+                <TodoColumn todos={data.filter((todo) => todo.status === "TODO")} title="Todo" updateTodoFn={updateTodoStatus} removeTodoFn={removeTodo}/>
+                <TodoColumn todos={data.filter((todo) => todo.status === "IN PROGRESS")} title="In Progress" updateTodoFn={updateTodoStatus} removeTodoFn={removeTodo} />
+                <TodoColumn todos={data.filter((todo) => todo.status === "DONE")} title="Done" updateTodoFn={updateTodoStatus} removeTodoFn={removeTodo} />
+              </div>
+            )}
+        </div>
+    )
+}
