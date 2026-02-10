@@ -5,7 +5,7 @@ export const getNextStatus = (todo: Todo, direction: TodoStatusChangeDirection) 
         throw new Error("Cannot move a removed todo");
     }
     
-    const statusOrder = [TodoStatus.todo, TodoStatus.inProgress, TodoStatus.done];
+    const statusOrder = [TodoStatus.TODO, TodoStatus.IN_PROGRESS, TodoStatus.DONE];
     const currentIndex = statusOrder.indexOf(todo.status);
 
     if (direction === "left" && currentIndex > 0) {
