@@ -1,8 +1,8 @@
 import { zTodo, zTodosResponse, type Todo } from "../types";
 
 export const todoApi = {
-    GET: async (url?: string) => {
-        const response = await fetch(`${import.meta.env.VITE_TODO_API_URL}/${url ?? ''}`, {
+    GET: async () => {
+        const response = await fetch(`${import.meta.env.VITE_TODO_API_URL}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -11,8 +11,8 @@ export const todoApi = {
         });
         return zTodosResponse.parse(await response.json());
     },
-    POST: async (body: Omit<Todo, "id">, url?: string) => {
-        const response = await fetch(`${import.meta.env.VITE_TODO_API_URL}/${url ?? ''}`, {
+    POST: async (body: Omit<Todo, "id">) => {
+        const response = await fetch(`${import.meta.env.VITE_TODO_API_URL}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,8 +22,8 @@ export const todoApi = {
         });
         return zTodo.parse(await response.json());
     },
-    UPDATE: async (body: Todo, url?: string) => {
-        const response = await fetch(`${import.meta.env.VITE_TODO_API_URL}/${url ?? ''}`, {
+    UPDATE: async (body: Todo) => {
+        const response = await fetch(`${import.meta.env.VITE_TODO_API_URL}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,14 +33,12 @@ export const todoApi = {
         });
         return zTodo.parse(await response.json());
     },
-    DELETE: async (id: number, url?: string) => {
-        const response = await fetch(`${import.meta.env.VITE_TODO_API_URL}/${url ?? ''}`, {
+    DELETE: async (id: number) => {
+        const response = await fetch(`${import.meta.env.VITE_TODO_API_URL}?id=${id}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',
                 'x-api-key': import.meta.env.VITE_TODO_API_KEY,
-            },
-            body: JSON.stringify({ id }),
+            }
         });
         return zTodo.parse(await response.json());
     },
