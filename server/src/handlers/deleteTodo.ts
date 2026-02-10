@@ -3,7 +3,7 @@ import db from "../db";
 import { DeleteTodosRoute, zTodo } from "../schemas/todo";
 
 export const removeTodos: RouteHandler<DeleteTodosRoute> = async (request, reply) => {
-    const { id } = request.body;
+    const { id } = request.query;
 
     const result = await db.query(
         'UPDATE todo SET removed_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP WHERE id = $1 RETURNING *',

@@ -34,7 +34,11 @@ export interface UpdateTodosRoute extends RouteGenericInterface {
   readonly Body: Todo;
 }
 
+export const zDeleteTodoQuerystring = z.object({
+  id: z.string(),
+});
+
 export interface DeleteTodosRoute extends RouteGenericInterface {
   readonly Reply: Todo | FastifyError;
-  readonly Body: TodoId;
+  readonly Querystring: z.infer<typeof zDeleteTodoQuerystring>;
 }

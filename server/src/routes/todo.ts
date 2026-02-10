@@ -1,7 +1,7 @@
 import { FastifyPluginAsync } from "fastify";
 import { createTodos } from "../handlers/createTodo";
 import { getTodos } from "../handlers/getTodos";
-import { CreateTodoRoute, GetTodosRoute, UpdateTodosRoute, zTodo, zTodosResponse, zTodoId, DeleteTodosRoute } from "../schemas/todo";
+import { CreateTodoRoute, GetTodosRoute, UpdateTodosRoute, zTodo, zTodosResponse, zTodoId, DeleteTodosRoute, zDeleteTodoQuerystring } from "../schemas/todo";
 import { updateTodos } from "../handlers/updateTodo";
 import { removeTodos } from "../handlers/deleteTodo";
 
@@ -46,7 +46,7 @@ export const todoRoutes: FastifyPluginAsync = (instance) => {
     url: "/",
     handler: removeTodos,
     schema: {
-      body: zTodoId,
+      querystring: zDeleteTodoQuerystring,
       response: {
         200: zTodo,
       },
