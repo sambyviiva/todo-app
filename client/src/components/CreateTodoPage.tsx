@@ -9,10 +9,11 @@ interface Props {
 
 export const CreatePage = (props: Props) => {
 
-      const { fetchTodos, loading } = useFetchTodos();
+    const { fetchTodos, loading } = useFetchTodos();
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [error, setError] = useState<string | null>(null);
 
     function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setTitle(e.target.value);
@@ -23,6 +24,11 @@ export const CreatePage = (props: Props) => {
     }
 
     const onCreateTodo = async () => {
+        if (title.trim() === "") {
+            setError("Title cannot be empty");
+            return;
+        }
+        setError(null);
         await todoApi.POST({
             title: title,
             description: description,
@@ -42,6 +48,7 @@ export const CreatePage = (props: Props) => {
                     <label htmlFor="description" className="font-bold mb-2">Description</label>
                     <textarea id="description" value={description} onChange={handleDescriptionChange} placeholder="Todo description max 200 characters" rows={4} maxLength={200} className="border border-indigo-300 rounded p-2 mb-4 w-full" />
                 </form>
+                {error && <p className="text-red-500">{error}</p>}
                 <div className="flex items-center w-80 mt-8 justify-between">
                     <button onClick={() => props.setIsCreatePageOpen(false)} disabled={loading}>&lt;&nbsp;&nbsp;Cancel</button>
                     <button onClick={onCreateTodo} disabled={loading}>Create Todo&nbsp;&nbsp;&gt;</button>
