@@ -2,7 +2,7 @@ import z from "zod/v4";
 
 export type TodoStatusChangeDirection = "left" | "right";
 
-export const TodoStatus = { todo: "TODO", inProgress: "IN PROGRESS", done: "DONE", removed: "REMOVED" } as const;
+export const TodoStatus = { TODO: "TODO", IN_PROGRESS: "IN PROGRESS", DONE: "DONE", REMOVED: "REMOVED" } as const;
 export const zTodoStatus = z.enum(TodoStatus);
 
 export const zTodo = z.object({

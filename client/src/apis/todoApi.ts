@@ -11,7 +11,7 @@ export const todoApi = {
         });
         return zTodosResponse.parse(await response.json());
     },
-    POST: async (body: Todo, url?: string) => {
+    POST: async (body: Omit<Todo, "id">, url?: string) => {
         const response = await fetch(`${import.meta.env.VITE_TODO_API_URL}/${url ?? ''}`, {
             method: 'POST',
             headers: {
