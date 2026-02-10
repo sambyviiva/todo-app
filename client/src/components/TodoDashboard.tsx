@@ -5,7 +5,11 @@ import type { Todo, TodoStatusChangeDirection } from "../types";
 import { getNextStatus } from "../utils/todo";
 import { TodoColumn } from "./TodoColumn";
 
-export const Dashboard = () => {
+interface Props {
+  setIsCreatePageOpen: (isOpen: boolean) => void;
+}
+
+export const Dashboard = (props: Props) => {
   const { data, loading, error, fetchTodos } = useFetchTodos();
 
   const updateTodoStatus = async (todoToUpdate: Todo, direction: TodoStatusChangeDirection) => {
@@ -18,12 +22,15 @@ export const Dashboard = () => {
     await todoApi.DELETE(id);
     fetchTodos();
   }
-
-  console.log("data", data);
   
   return (
         <div className="flex flex-col items-center p-4 w-full">
+          <div className="text-center relative w-200">
             <h1 className="text-2xl font-bold mb-12 mt-4">TODO List</h1>
+            <button className="absolute right-0 top-12 bg-green-600" onClick={() => props.setIsCreatePageOpen(true)}>
+              <span className="text-2xl">+&nbsp;&nbsp;Create</span>
+            </button>
+          </div>
             {loading && <p>Loading...</p>}
             {error && <p className="text-red-500">{error}</p>}
             {data && (
