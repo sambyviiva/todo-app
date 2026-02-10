@@ -8,8 +8,8 @@ export const zTodoId = z.object({
 export const zTodoStatus = z.enum(["TODO", "IN PROGRESS", "DONE", "REMOVED"]);
 
 export const zTodo = zTodoId.extend({
-    title: z.string(),
-    description: z.string(),
+    title: z.string().max(40),
+    description: z.string().max(200),
     status: zTodoStatus,
 });
 
