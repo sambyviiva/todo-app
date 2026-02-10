@@ -10,4 +10,8 @@ CREATE TABLE todo (
 );
 
 INSERT INTO todo (title, description, status)
-VALUES ('Example TODO 1', 'Example description 1', 'TODO'), ('Example TODO 2', 'Example description 2', 'IN PROGRESS'), ('Example TODO 3', 'Example description 3', 'DONE')
+VALUES
+('Example TODO 1', 'Example description 1', 'TODO'),
+('Example TODO 2', 'Example description 2', 'IN PROGRESS'),
+('Example TODO 3', 'Example description 3', 'DONE'),
+('Example TODO 4', 'Example description 4', 'REMOVED')
