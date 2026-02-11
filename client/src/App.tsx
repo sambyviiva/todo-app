@@ -1,4 +1,3 @@
-import './styles/App.css'
 import { Dashboard } from './components/TodoDashboard'
 import { useState } from 'react';
 import { CreatePage } from './components/CreateTodoPage';
